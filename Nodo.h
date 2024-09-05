@@ -26,7 +26,7 @@ class Nodo {
 		}
 		Nodo(char caracter) {
 			this->caracter = caracter;
-			frequencia = 0;
+			frequencia = 1;
 			array_children[0] = nullptr;
 			array_children[1] = nullptr;
 			parent = nullptr;
