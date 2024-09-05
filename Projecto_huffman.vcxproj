@@ -127,13 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cola.cpp" />
     <ClCompile Include="Huffman_Tree.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Nodo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cola.h" />
     <ClInclude Include="Huffman_Tree.h" />
     <ClInclude Include="Nodo.h" />
   </ItemGroup>

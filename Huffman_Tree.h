@@ -13,7 +13,9 @@ private:
 	Nodo* head;
 	vector<Nodo*> cola; // implementar como cola sino toca usar un quicksort (talvez no)
 public:
+	Huffman_Tree() {
 
+	}
 	int lectura_txt(string filename) {
 		ifstream lectura;
 		lectura.open(filename);
@@ -23,14 +25,20 @@ public:
 		}
 		char caracter = ' ';
 		while (lectura.get(caracter)) {
-			if (!find){
+			if (!find(caracter)){
 				Nodo* nodo = new Nodo(caracter);
 				cola.push_back(nodo);
 			}
 		}
+		head = cola[0]; 
+		print();
 		return 0;
 	}
-
+	void print() {
+		for (size_t i = 0; i < cola.size(); i++){
+			cout << cola[i]->getChar()<< " " << cola[i]->getFreq()<< endl;
+		}
+	}
 	bool find(char chr) {
 		for (size_t i = 0; i < cola.size(); i++){
 			if (cola[i]->getChar() == chr) {

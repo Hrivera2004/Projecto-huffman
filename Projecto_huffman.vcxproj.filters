@@ -18,9 +18,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cola.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Huffman_Tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cola.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Huffman_Tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
