@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|solutionrelative:Huffman_Tree.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|solutionrelative:Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Nodo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|solutionrelative:Nodo.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Huffman_Tree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|solutionrelative:Huffman_Tree.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|solutionrelative:Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DFB53B33-D80E-4EB8-A1A5-9D08B3489B24}|Projecto_huffman.vcxproj|C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Nodo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -46,7 +46,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Huffman_Tree.cpp",
               "DocumentMoniker": "C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Huffman_Tree.cpp",
               "RelativeDocumentMoniker": "Huffman_Tree.cpp",
@@ -54,12 +54,11 @@
               "RelativeToolTip": "Huffman_Tree.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-09-05T16:01:56.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-05T16:01:56.285Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Nodo.h",
               "DocumentMoniker": "C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Nodo.h",
               "RelativeDocumentMoniker": "Nodo.h",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "Nodo.h",
               "ViewState": "AQIAABUAAAAAAAAAAAAAAEAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-09-05T16:01:11.765Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-05T16:01:11.765Z"
             },
             {
               "$type": "Document",
@@ -78,20 +76,20 @@
               "RelativeDocumentMoniker": "Huffman_Tree.h",
               "ToolTip": "C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Huffman_Tree.h",
               "RelativeToolTip": "Huffman_Tree.h",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAACkAAAADAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-09-05T16:00:40.796Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Main.cpp",
               "DocumentMoniker": "C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Main.cpp",
               "RelativeDocumentMoniker": "Main.cpp",
               "ToolTip": "C:\\Users\\hriverav\\Documents\\labs-Progra3\\Projecto_huffman\\Main.cpp",
               "RelativeToolTip": "Main.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAUwBkAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-05T15:59:36.58Z",
               "EditorCaption": ""
