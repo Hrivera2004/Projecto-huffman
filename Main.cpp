@@ -8,15 +8,16 @@ void mostrarMenu() {
 	cout << "1. Mostrar cola de prioridades\n";
 	cout << "2. Mostrar tabla de frecuencias\n";
 	cout << "3. Mostrar arbol\n";
-	cout << "4. Salir\n";
+	cout << "4. Comprimir\n";
+	cout << "5. Salir\n";
 	cout << "Seleccione una opción: ";
 }
 
 int main() {
-	Huffman_Tree huffmanTree;
+	setlocale(LC_ALL, "spanish");
+	Huffman_Tree huffmanTree("ppp");
 	int opcion = 0;
-	string filename = "ppp.txt";  // Nombre del archivo de texto a leer
-	huffmanTree.lectura_txt(filename);  // Generar tabla de frecuencias
+	huffmanTree.lectura_txt();  // Generar tabla de frecuencias
 	huffmanTree.build_tree();
 	do {
 		mostrarMenu();
@@ -36,11 +37,14 @@ int main() {
 			huffmanTree.print_tree();
 			break;
 		case 4:
+			huffmanTree.comprimir();
+			break;
+		case 5:
 			cout << "\n--- Saliendo del Programa... ---\n";
 			break;
 		default:
 			cout << "Opción no válida. Intente nuevamente.\n";
 		}
-	} while (opcion != 4);
+	} while (opcion != 5);
 	return 0;
 }
