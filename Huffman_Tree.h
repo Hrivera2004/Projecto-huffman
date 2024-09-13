@@ -34,10 +34,10 @@ public:
 			if (!find(caracter)) {
 				Nodo* nodo = new Nodo(caracter);
 				cola.push_back(nodo);
+				
 			}
 		}
 		head = cola[0];
-		copia_cola = cola;
 		lectura.close();  // Cerrar archivo después de leer
 		return 0;
 	}
@@ -60,16 +60,25 @@ public:
 	}
 
 	void print_cola() {
-		for (size_t i = 0; i < cola.size(); i++) {
+		for (size_t i = 0; i < copia_cola.size(); i++) {
 			cout << "'" << copia_cola[i]->getChar() << "' aparece " << copia_cola[i]->getFreq() << " veces." << endl;
 		}
 	}
 	void print_TF() { // falta  [% de compression lograda , codigo binario]
-		for (size_t i = 0; i < cola.size(); i++) {
-			cout << "'" << copia_cola[i]->getChar() << "' aparece " << copia_cola[i]->getFreq() << " veces." << endl;
+		pre_order(head,"");
+	}
+	void pre_order(Nodo* nodo, string progress) {
+		if (nodo->getChar() != '\0'){
+			cout << "'" << nodo->getChar() << "' aparece " << nodo->getFreq() << " veces  " << progress<<" Compression logrado: "<< (1.0-(progress.size() / 8.0)) * 100 << "%" << endl;
+		}else{
+			if (nodo->getLeft_P() != nullptr){
+				pre_order(nodo->getLeft_P(), progress + '0' );
+			}
+			if (nodo->getRight_P() != nullptr) {
+				pre_order(nodo->getRight_P(), progress + '1');
+			}
 		}
 	}
-
 	bool find(char chr) {//probado
 		for (size_t i = 0; i < cola.size(); i++) {
 			if (cola[i]->getChar() == chr) {
@@ -159,7 +168,7 @@ public:
 		}
 		// Si es un nodo interno, solo imprime la frecuencia
 		else {
-			cout << "[Nodo interno] (Frecuencia: " << nodo->getFreq() << ")" << endl;
+			cout << "[Nodo] (" << nodo->getFreq() << ")" << endl;
 		}
 
 		// Llamadas recursivas para los hijos izquierdo y derecho

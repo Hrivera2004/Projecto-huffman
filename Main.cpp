@@ -17,7 +17,7 @@ int main() {
 	int opcion = 0;
 	string filename = "ppp.txt";  // Nombre del archivo de texto a leer
 	huffmanTree.lectura_txt(filename);  // Generar tabla de frecuencias
-
+	huffmanTree.build_tree();
 	do {
 		mostrarMenu();
 		cin >> opcion;
@@ -33,7 +33,6 @@ int main() {
 			break;
 		case 3:
 			cout << "\n--- Arbol huffman (imprimir) ---\n";
-			huffmanTree.build_tree();
 			huffmanTree.print_tree();
 			break;
 		case 4:
