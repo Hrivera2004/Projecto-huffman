@@ -44,6 +44,7 @@ public:
 
 	void build_tree() {//probado
 		ordenarCola();
+		copia_cola = cola;
 		while (cola.size() > 1) {
 			cola.push_back(inner_node_create());
 			ordenarCola();
@@ -67,6 +68,7 @@ public:
 	void print_TF() { // falta  [% de compression lograda , codigo binario]
 		pre_order(head,"");
 	}
+
 	void pre_order(Nodo* nodo, string progress) {
 		if (nodo->getChar() != '\0'){
 			cout << "'" << nodo->getChar() << "' aparece " << nodo->getFreq() << " veces  " << progress<<" Compression logrado: "<< (1.0-(progress.size() / 8.0)) * 100 << "%" << endl;
