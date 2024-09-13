@@ -186,7 +186,7 @@ public:
 		}
 
 		// Imprimir la información del nodo con la indentación adecuada
-		for (int i = 0; i < nivel; ++i) {
+		for (size_t i = 0; i < nivel; ++i) {
 			cout << "   ";  // Indentación para reflejar el nivel del árbol
 		}
 
@@ -209,7 +209,6 @@ public:
 	}
 
 	void comprimir() {
-
 		if (codigo.size()==0){
 			pre_order_comprimir(head, "");
 		}
@@ -242,6 +241,23 @@ public:
 		output.close();
 
 		// 5. Guardar la tabla de frecuencias para descompresión
-		//guardar_frecuencias(freq_filename);
+		guardar_frecuencias();
 	}
+
+	void guardar_frecuencias() {
+		ofstream archivo(txt_filename+"(tabla).txt");
+		if (!archivo.is_open()) {
+			cout << "Error al abrir el archivo para guardar frecuencias." << endl;
+			return;
+		}
+
+		// Recorrer todos los nodos de la cola para guardar la tabla de frecuencias
+		for (const auto& pair : codigo) {
+			archivo << pair.first << " " << pair.second << endl;
+		}
+
+		archivo.close();
+		cout << "Frecuencias guardadas en: " << txt_filename + "(tabla).txt" << endl;
+	}
+
 };
