@@ -9,11 +9,17 @@ using namespace	std;
 
 class Huffman_Tree {
 private:
-	Nodo* head = NULL;
+	Nodo* head;
 	vector<Nodo*> cola; // implementar como cola sino toca usar un quicksort (talvez no)
+	vector<Nodo*> copia_cola;
 public:
+	
 	Huffman_Tree() {
-
+		head = nullptr;
+	}
+	
+	~Huffman_Tree() {
+		//destructor al final
 	}
 
 	int lectura_txt(string filename) {//probado
@@ -31,29 +37,36 @@ public:
 			}
 		}
 		head = cola[0];
+		copia_cola = cola;
 		lectura.close();  // Cerrar archivo después de leer
 		return 0;
 	}
 
-	void build_tree() {//falta probar
+	void build_tree() {//probado
+		ordenarCola();
 		while (cola.size() > 1) {
 			cola.push_back(inner_node_create());
 			ordenarCola();
 		}
+		head = cola.back();
 	}
 
-	Nodo* inner_node_create() {//falta probar
-		Nodo* nodo1 = cola[cola.size() - 1];
-		Nodo* nodo2 = cola[cola.size() - 2];
+	Nodo* inner_node_create() {//probado
+		Nodo* nodo1 = cola.back();
 		cola.pop_back();
+		Nodo* nodo2 = cola.back();
 		cola.pop_back();
 		return new Nodo('\0', nodo1->getFreq() + nodo2->getFreq(), nodo2, nodo1);
 	}
 
-	void print() {
-		cout << "Tabla de frecuencias de caracteres:\n";
+	void print_cola() {
 		for (size_t i = 0; i < cola.size(); i++) {
-			cout << "'" << cola[i]->getChar() << "' aparece " << cola[i]->getFreq() << " veces." << endl;
+			cout << "'" << copia_cola[i]->getChar() << "' aparece " << copia_cola[i]->getFreq() << " veces." << endl;
+		}
+	}
+	void print_TF() { // falta  [% de compression lograda , codigo binario]
+		for (size_t i = 0; i < cola.size(); i++) {
+			cout << "'" << copia_cola[i]->getChar() << "' aparece " << copia_cola[i]->getFreq() << " veces." << endl;
 		}
 	}
 
@@ -130,4 +143,33 @@ public:
 			indiceMezcla++;
 		}
 	}
+	void imprimir_arbol(Nodo* nodo, int nivel = 0) {
+		if (nodo == nullptr) {
+			return;  // Si el nodo es nulo, no se imprime nada
+		}
+
+		// Imprimir la información del nodo con la indentación adecuada
+		for (int i = 0; i < nivel; ++i) {
+			cout << "   ";  // Indentación para reflejar el nivel del árbol
+		}
+
+		// Si es un nodo hoja, imprime el carácter y la frecuencia
+		if (nodo->getChar() != '\0') {
+			cout << "'" << nodo->getChar() << "' (Frecuencia: " << nodo->getFreq() << ")" << endl;
+		}
+		// Si es un nodo interno, solo imprime la frecuencia
+		else {
+			cout << "[Nodo interno] (Frecuencia: " << nodo->getFreq() << ")" << endl;
+		}
+
+		// Llamadas recursivas para los hijos izquierdo y derecho
+		imprimir_arbol(nodo->getLeft_P(), nivel + 1);  // Imprimir el subárbol izquierdo
+		imprimir_arbol(nodo->getRight_P(), nivel + 1); // Imprimir el subárbol derecho
+	}
+
+	void print_tree() {
+		imprimir_arbol(head);
+	}
+
+
 };

@@ -7,7 +7,8 @@ void mostrarMenu() {
 	cout << "\n--- Menu ---\n";
 	cout << "1. Mostrar cola de prioridades\n";
 	cout << "2. Mostrar tabla de frecuencias\n";
-	cout << "3. Salir\n";
+	cout << "3. Mostrar arbol\n";
+	cout << "4. Salir\n";
 	cout << "Seleccione una opción: ";
 }
 
@@ -24,18 +25,23 @@ int main() {
 		case 1:
 			cout << "\n--- Cola de Prioridades (Ordenada) ---\n";
 			huffmanTree.ordenarCola();
-			huffmanTree.print();  // Mostrar cola de prioridades ordenada
+			huffmanTree.print_cola();  // Mostrar cola de prioridades ordenada
 			break;
 		case 2:
 			cout << "\n--- Tabla de Frecuencias ---\n";
-			huffmanTree.print();  // Mostrar tabla de frecuencias
+			huffmanTree.print_TF();  // Mostrar tabla de frecuencias
 			break;
 		case 3:
+			cout << "\n--- Arbol huffman (imprimir) ---\n";
+			huffmanTree.build_tree();
+			huffmanTree.print_tree();
+			break;
+		case 4:
 			cout << "\n--- Saliendo del Programa... ---\n";
 			break;
 		default:
 			cout << "Opción no válida. Intente nuevamente.\n";
 		}
-	} while (opcion != 3);
+	} while (opcion != 4);
 	return 0;
 }
