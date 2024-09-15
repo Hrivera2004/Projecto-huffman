@@ -28,7 +28,7 @@ int main() {
 
     // Solicitar el nombre del archivo hasta que sea válido
     while (!archivoValido) {
-        cout << "Ingrese el nombre del archivo de texto (con extensión .txt): ";
+        cout << "Ingrese el nombre del archivo de texto: ";
         cin >> nameFiletxt;
 
         // Asignar el nombre de archivo al árbol
@@ -47,6 +47,7 @@ int main() {
     }
 
     int opcion = 0;
+
     do {
         mostrarMenu();
         cin >> opcion;
@@ -69,12 +70,18 @@ int main() {
             break;
         case 4:
             huffmanTree.comprimir();  // Comprimir el archivo
+            cout << "\n--- Compresión completada ---\n";
             system("pause");
             break;
-        case 5:
-
-            //huffmanTree.descomprimir();
-            break;
+        case 5: {
+            cout << "\n--- Descomprir Archivo ---\n";
+            cout << "Ingrese el nombre del archivo: ";
+            string archivo_descomprimir = "";
+            cin >> archivo_descomprimir;
+            huffmanTree.descomprimir(archivo_descomprimir);
+            cout << "\n--- Compresión completada ---\n";
+            system("pause");
+        }break;
         case 6:
             cout << "\n--- Saliendo del Programa... ---\n";
             break;

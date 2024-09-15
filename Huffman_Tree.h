@@ -246,19 +246,19 @@ public:
 
 		int paddding = 0;
 		// Escribir la secuencia comprimida (convertir de string a bits)
-		vector<unsigned char> bytes;
+		vector<string> bytes;
 		for (size_t i = 0; i < compressed_data.size(); i += 8) {
 			string byte_str = compressed_data.substr(i, 8);
 			if (byte_str.size() < 8) {
 				paddding = 8 - byte_str.size();
 				byte_str.append(8 - byte_str.size(), '0');
 			}
-			bytes.push_back(bitset<8>(byte_str).to_ulong());
+			bytes.push_back(byte_str);
 		}
 		output.write(reinterpret_cast<char*>(&paddding), sizeof(int));
-
-		for (size_t i = 0; i < bytes.size(); i++){
-			unsigned char byte = bytes[i];
+		unsigned char byte;
+		for (int i = 0; i < bytes.size(); i++){
+			byte = bitset<8>(bytes[i]).to_ulong();
 			output.write(reinterpret_cast<char*>(&byte), sizeof(byte));
 		}
 		
@@ -283,13 +283,18 @@ public:
 		guardar_arbol_binario(nodo->getRight_P(), file);
 	}
 
-	void descomprimir(string comp_name) {
+	int descomprimir(string comp_name) {
 		//lectura del arbol
 		ifstream input(comp_name + ".huffman", ios::binary);
+		ifstream input2(comp_name + ".comp", ios::binary);
+		if (!input || !input2){
+			cerr << endl << "No se logró abrir el archivo. Asegúrese de que exista." << endl;
+			return 1;
+		}
 		Nodo* temp_head = cargar_arbol_binario(input);
 		input.close();
 		//lectura de boolean
-		ifstream input2(comp_name + ".comp", ios::binary);
+
 		int padding;
 		input2.read(reinterpret_cast<char*>(&padding), sizeof(int));
 		//lectura de frase comprimida
@@ -315,9 +320,20 @@ public:
 				actual = temp_head;
 			}
 		}
-		
+		ofstream output_txt(comp_name + "_descomprimido.txt");
+		if (output_txt.is_open()) {
+			output_txt << frase;  // Escribir la frase en el archivo
+			output_txt.close();
+			cout << "Archivo descomprimido y guardado como: " << comp_name + "_descomprimido.txt" << endl;
+		}
+		else {
+			cout << "Error al crear el archivo de salida." << endl;
+		}
+		// Limpiar la memoria
 		cout << frase << endl;
+		deleteTree(temp_head);
 		input2.close();
+		return 0;
 	}
 
 	Nodo* cargar_arbol_binario(ifstream& file) {
