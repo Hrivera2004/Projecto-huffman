@@ -12,21 +12,33 @@ using namespace	std;
 class Huffman_Tree {
 private:
 	Nodo* head;
-	vector<Nodo*> cola; // implementar como cola sino toca usar un quicksort (talvez no)
+	vector<Nodo*> cola;
 	vector<Nodo*> copia_cola;
 	string txt_filename;
 	unordered_map<char, string> codigo;
 public:
-	
+
 	Huffman_Tree(string txt_filename) {
 		head = nullptr;
 		this->txt_filename = txt_filename;
 	}
-	
+
 	~Huffman_Tree() {
-		//destructor al final
+		deleteTree(head);
+		cola.clear();
+		copia_cola.clear();
 	}
 
+	void deleteTree(Nodo* nodo) {
+		if (nodo != nullptr) {
+			deleteTree(nodo->getLeft_P());
+			deleteTree(nodo->getRight_P());
+			delete nodo;
+		}
+	}
+	void setArchivo(const string& nuevoArchivo) {
+		this->txt_filename = nuevoArchivo;
+	}
 	int lectura_txt() {//probado
 		ifstream lectura;
 		lectura.open(txt_filename + ".txt");
@@ -39,7 +51,7 @@ public:
 			if (!find(caracter)) {
 				Nodo* nodo = new Nodo(caracter);
 				cola.push_back(nodo);
-				
+
 			}
 		}
 		head = cola[0];
@@ -71,7 +83,7 @@ public:
 		}
 	}
 	void print_TF() { // falta  [% de compression lograda , codigo binario]
-		pre_order(head,"");
+		pre_order(head, "");
 	}
 
 	void pre_order(Nodo* nodo, string progress) {
@@ -209,17 +221,22 @@ public:
 	}
 
 	void comprimir() {
-		if (codigo.size()==0){
+		if (codigo.size() == 0) {
 			pre_order_comprimir(head, "");
 		}
 
-		// 3. Leer el archivo de entrada y reemplazar los caracteres por los códigos Huffman
-		ifstream input(txt_filename+".txt");
+		// Leer el archivo de entrada y reemplazar los caracteres por los códigos Huffman
+		ifstream input(txt_filename + ".txt");
 		ofstream output(txt_filename + ".comp", ios::binary);
 		if (!input.is_open() || !output.is_open()) {
 			cout << "Error al abrir los archivos de entrada/salida" << endl;
 			return;
 		}
+
+		//guradar "arbol"
+		ofstream write(txt_filename + ".huffman", ios::binary);
+		guardar_arbol_binario(head, write);
+		write.close();
 
 		string compressed_data = "";
 		char c;
@@ -227,37 +244,103 @@ public:
 			compressed_data += codigo[c];  // Reemplazar el carácter por su código Huffman
 		}
 
-		// 4. Escribir la secuencia comprimida (convertir de string a bits)
+		int paddding = 0;
+		// Escribir la secuencia comprimida (convertir de string a bits)
+		vector<unsigned char> bytes;
 		for (size_t i = 0; i < compressed_data.size(); i += 8) {
 			string byte_str = compressed_data.substr(i, 8);
 			if (byte_str.size() < 8) {
-				byte_str.append(8 - byte_str.size(), '0');  // Padding con ceros si es necesario
+				paddding = 8 - byte_str.size();
+				byte_str.append(8 - byte_str.size(), '0');
 			}
-			unsigned char byte = bitset<8>(byte_str).to_ulong();
+			bytes.push_back(bitset<8>(byte_str).to_ulong());
+		}
+		output.write(reinterpret_cast<char*>(&paddding), sizeof(int));
+
+		for (size_t i = 0; i < bytes.size(); i++){
+			unsigned char byte = bytes[i];
 			output.write(reinterpret_cast<char*>(&byte), sizeof(byte));
 		}
-
+		
 		input.close();
 		output.close();
-
-		// 5. Guardar la tabla de frecuencias para descompresión
-		guardar_frecuencias();
+	
 	}
+	void guardar_arbol_binario(Nodo* nodo, ofstream& file) {
+		if (!nodo) return;
 
-	void guardar_frecuencias() {
-		ofstream archivo(txt_filename+"(tabla).txt");
-		if (!archivo.is_open()) {
-			cout << "Error al abrir el archivo para guardar frecuencias." << endl;
-			return;
+		// Si es una hoja, escribimos el bit 1 seguido del carácter en binario
+		if (nodo->getLeft_P() == nullptr && nodo->getRight_P() == nullptr) {
+			file.put('1');  // Nodo hoja
+			file.put(nodo->getChar());  // Guardamos el carácter en binario
+		}
+		else {
+			file.put('0');  // Nodo interno
 		}
 
-		// Recorrer todos los nodos de la cola para guardar la tabla de frecuencias
-		for (const auto& pair : codigo) {
-			archivo << pair.first << " " << pair.second << endl;
-		}
-
-		archivo.close();
-		cout << "Frecuencias guardadas en: " << txt_filename + "(tabla).txt" << endl;
+		// Guardamos recursivamente los hijos
+		guardar_arbol_binario(nodo->getLeft_P(), file);
+		guardar_arbol_binario(nodo->getRight_P(), file);
 	}
 
+	void descomprimir(string comp_name) {
+		//lectura del arbol
+		ifstream input(comp_name + ".huffman", ios::binary);
+		Nodo* temp_head = cargar_arbol_binario(input);
+		input.close();
+		//lectura de boolean
+		ifstream input2(comp_name + ".comp", ios::binary);
+		int padding;
+		input2.read(reinterpret_cast<char*>(&padding), sizeof(int));
+		//lectura de frase comprimida
+		
+		string compressed_data = "";
+		unsigned char byte;
+		while (input2.read(reinterpret_cast<char*>(&byte), sizeof(byte))) {
+			compressed_data += bitset<8>(byte).to_string();  // Convertir los bytes de vuelta a bits
+		}
+		compressed_data.erase(compressed_data.size() - padding);
+
+		//traducir frase
+		string frase = "";
+		Nodo* actual = temp_head; //escribir en txt
+		for (size_t i = 0; i < compressed_data.size(); i++) {
+			if (compressed_data[i] == '0'){
+				actual = actual->getLeft_P();
+			} else {
+				actual = actual->getRight_P();
+			}
+			if (actual->getLeft_P() == nullptr && actual->getRight_P() == nullptr) {
+				frase += actual->getChar();
+				actual = temp_head;
+			}
+		}
+		
+		cout << frase << endl;
+		input2.close();
+	}
+
+	Nodo* cargar_arbol_binario(ifstream& file) {
+		char bit;
+		file.get(bit);
+
+		// Si es una hoja (bit 1), leemos el carácter
+		if (bit == '1') {
+			char caracter;
+			file.get(caracter);
+			return new Nodo(caracter, 0);  // El nodo hoja no tiene frecuencia relevante aquí
+		}
+
+		// Si es un nodo interno (bit 0), creamos un nodo y seguimos cargando recursivamente
+		if (bit == '0') {
+			Nodo* nodo = new Nodo('\0', 0);  // Nodo interno sin carácter
+			nodo->setLeft_P(cargar_arbol_binario(file));  // Cargar subárbol izquierdo
+			nodo->setRight_P(cargar_arbol_binario(file));  // Cargar subárbol derecho
+			return nodo;
+		}
+
+		return nullptr;  // En caso de error
+	}
+
+	
 };
