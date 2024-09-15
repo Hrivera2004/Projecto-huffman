@@ -78,8 +78,7 @@ int main() {
             cout << "Ingrese el nombre del archivo: ";
             string archivo_descomprimir = "";
             cin >> archivo_descomprimir;
-            huffmanTree.descomprimir(archivo_descomprimir);
-            cout << "\n--- Compresión completada ---\n";
+            huffmanTree.descomprimir("Files/" + archivo_descomprimir);
             system("pause");
         }break;
         case 6:
